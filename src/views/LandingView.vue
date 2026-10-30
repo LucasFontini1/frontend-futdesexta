@@ -1,3 +1,6 @@
+<script setup>
+import InstallPrompt from '@/components/pwa/InstallPrompt.vue'
+</script>
 <template>
   <div class="container">
     <section class="hero">
@@ -7,6 +10,7 @@
       <div class="actions">
         <RouterLink class="button" to="/cadastro">Criar minha conta</RouterLink>
         <RouterLink class="button button-secondary" to="/entrar">Já tenho conta</RouterLink>
+        <InstallPrompt />
       </div>
     </section>
     <section class="grid" aria-label="Funcionalidades">
