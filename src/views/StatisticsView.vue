@@ -43,9 +43,8 @@ watch(kind, load, { immediate: true })
         {{ row.goals_conceded_identified }} gols sofridos identificados
       </p>
       <p class="muted">
-        Amarelos: {{ row.yellow_cards ?? 'não informado' }} ·
-        Vermelhos: {{ row.red_cards ?? 'não informado' }} ·
-        Faltas: {{ row.fouls ?? 'não informado' }} ·
+        Amarelos: {{ row.yellow_cards ?? 'não informado' }} · Vermelhos:
+        {{ row.red_cards ?? 'não informado' }} · Faltas: {{ row.fouls ?? 'não informado' }} ·
         Defesas: {{ row.saves ?? 'não informado' }}
       </p>
     </div>

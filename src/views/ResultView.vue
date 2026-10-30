@@ -2,7 +2,14 @@
 import { onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { getMatch } from '@/api/matchesApi'
-import { getSides, getLineup, getResult, saveResult, getOptionalMetrics, saveOptionalMetric } from '@/api/footballApi'
+import {
+  getSides,
+  getLineup,
+  getResult,
+  saveResult,
+  getOptionalMetrics,
+  saveOptionalMetric,
+} from '@/api/footballApi'
 const id = useRoute().params.id
 const match = ref(null)
 const sides = ref([])
@@ -158,27 +165,42 @@ onMounted(load)
     </form>
     <section class="card">
       <h2>Estatísticas opcionais</h2>
-      <p class="muted">Registre somente o que foi observado. Campo vazio significa não informado, não zero.</p>
+      <p class="muted">
+        Registre somente o que foi observado. Campo vazio significa não informado, não zero.
+      </p>
       <div v-for="row in metrics" :key="row.player" class="list-row">
         <span>Jogador #{{ row.player }}</span>
         <span>
-          Amarelos: {{ row.yellow_cards ?? '—' }} · Vermelhos: {{ row.red_cards ?? '—' }} ·
-          Faltas: {{ row.fouls ?? '—' }} · Defesas: {{ row.saves ?? '—' }}
+          Amarelos: {{ row.yellow_cards ?? '—' }} · Vermelhos: {{ row.red_cards ?? '—' }} · Faltas:
+          {{ row.fouls ?? '—' }} · Defesas: {{ row.saves ?? '—' }}
         </span>
       </div>
       <form class="form" @submit.prevent="submitMetric">
-        <label class="field">Jogador escalado
+        <label class="field"
+          >Jogador escalado
           <select v-model="metricForm.player" required>
             <option value="" disabled>Selecione um jogador</option>
-            <option v-for="slot in slots.filter((s) => !s.reserve)" :key="slot.player" :value="slot.player">
+            <option
+              v-for="slot in slots.filter((s) => !s.reserve)"
+              :key="slot.player"
+              :value="slot.player"
+            >
               Jogador #{{ slot.player }}
             </option>
           </select>
         </label>
-        <label class="field">Cartões amarelos <input v-model="metricForm.yellow_cards" type="number" min="0" /></label>
-        <label class="field">Cartões vermelhos <input v-model="metricForm.red_cards" type="number" min="0" /></label>
-        <label class="field">Faltas <input v-model="metricForm.fouls" type="number" min="0" /></label>
-        <label class="field">Defesas <input v-model="metricForm.saves" type="number" min="0" /></label>
+        <label class="field"
+          >Cartões amarelos <input v-model="metricForm.yellow_cards" type="number" min="0"
+        /></label>
+        <label class="field"
+          >Cartões vermelhos <input v-model="metricForm.red_cards" type="number" min="0"
+        /></label>
+        <label class="field"
+          >Faltas <input v-model="metricForm.fouls" type="number" min="0"
+        /></label>
+        <label class="field"
+          >Defesas <input v-model="metricForm.saves" type="number" min="0"
+        /></label>
         <button type="submit" class="button">Salvar estatísticas opcionais</button>
       </form>
     </section>
