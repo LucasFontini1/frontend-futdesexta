@@ -1,4 +1,5 @@
 <script setup>
+import PushPermission from '@/components/pwa/PushPermission.vue'
 import { onMounted, ref } from 'vue'
 import { listNotifications, markRead } from '@/api/notificationsApi'
 const notifications = ref([])
@@ -19,6 +20,7 @@ onMounted(load)
 <template>
   <section class="container page">
     <h1>Notificações</h1>
+    <PushPermission />
     <p v-if="error" class="error" role="alert">{{ error }}</p>
     <article v-for="item in notifications" :key="item.id" class="card">
       <h2>{{ item.title }}</h2>
