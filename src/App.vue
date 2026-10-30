@@ -4,10 +4,12 @@ import { RouterView, useRoute } from 'vue-router'
 import { computed, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import AppSidebar from '@/components/layout/AppSidebar.vue'
+import AuthShell from '@/components/layout/AuthShell.vue'
 import AppHeader from '@/components/layout/AppHeader.vue'
 const route = useRoute()
 const auth = useAuthStore()
 const privateLayout = computed(() => Boolean(route.meta.auth && auth.isAuthenticated()))
+const authenticationLayout = computed(() => ['login', 'register'].includes(route.name))
 onMounted(() => {
   if (auth.isAuthenticated()) auth.loadCurrentUser().catch(() => {})
 })
@@ -27,7 +29,8 @@ function changeTheme(value) {
 
 <template>
   <AppSidebar v-if="privateLayout" />
-  <AppHeader v-else :theme="theme" @change-theme="changeTheme" />
-  <main :class="{ 'authenticated-main': privateLayout }"><RouterView /></main>
-  <footer v-if="!privateLayout" class="site-footer">Fut de Sexta · Futebol é comunidade.</footer>
+  <AppHeader v-else-if="!authenticationLayout" :theme="theme" @change-theme="changeTheme" />
+  <main v-if="authenticationLayout"><AuthShell><RouterView /></AuthShell></main>
+  <main v-else :class="{ 'authenticated-main': privateLayout }"><RouterView /></main>
+  <footer v-if="!privateLayout && !authenticationLayout" class="site-footer">Fut de Sexta · Futebol é comunidade.</footer>
 </template>
