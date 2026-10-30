@@ -21,6 +21,8 @@ test('todos os módulos principais abrem autenticados sem erro JavaScript', asyn
     '/notificacoes',
     '/convites',
     '/perfil',
+    '/configuracoes',
+    '/historico',
   ]
   for (const route of routes) {
     await page.goto(route)
