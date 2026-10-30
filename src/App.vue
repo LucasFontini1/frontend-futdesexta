@@ -5,8 +5,8 @@ import AppHeader from '@/components/layout/AppHeader.vue'
 const theme = ref(localStorage.getItem('fut-theme') || 'system')
 const media = matchMedia('(prefers-color-scheme: dark)')
 function applyTheme() {
-  document.documentElement.dataset.theme = theme.value === 'system'
-    ? (media.matches ? 'dark' : 'light') : theme.value
+  document.documentElement.dataset.theme =
+    theme.value === 'system' ? (media.matches ? 'dark' : 'light') : theme.value
 }
 media.addEventListener('change', applyTheme)
 watch(theme, applyTheme, { immediate: true })
