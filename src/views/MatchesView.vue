@@ -1,12 +1,13 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { listTeams } from '@/api/teamsApi'
+import LocationPicker from '@/components/maps/LocationPicker.vue'
 import { createMatch, listMatches } from '@/api/matchesApi'
 const matches = ref([])
 const teams = ref([])
 const error = ref('')
 const notice = ref('')
-const form = ref({ team: '', title: '', starts_at: '', ends_at: '', location: '' })
+const form = ref({ team: '', title: '', starts_at: '', ends_at: '', location: '', latitude: null, longitude: null })
 async function load() {
   try {
     const [m, t] = await Promise.all([listMatches(), listTeams()])
@@ -49,6 +50,11 @@ onMounted(load)
         <label class="field">Início <input v-model="form.starts_at" type="datetime-local" required /></label>
         <label class="field">Fim <input v-model="form.ends_at" type="datetime-local" required /></label>
         <label class="field">Local <input v-model="form.location" /></label>
+        <LocationPicker @selected="(value) => {
+          form.latitude = value.latitude
+          form.longitude = value.longitude
+          if (value.location) form.location = value.location
+        }" />
         <button class="button" type="submit">Agendar</button>
       </form>
     </section>
