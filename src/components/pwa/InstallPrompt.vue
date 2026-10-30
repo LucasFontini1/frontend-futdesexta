@@ -2,8 +2,14 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 const installEvent = ref(null)
 const installed = ref(false)
-function ready(event) { event.preventDefault(); installEvent.value = event }
-function confirmInstalled() { installed.value = true; installEvent.value = null }
+function ready(event) {
+  event.preventDefault()
+  installEvent.value = event
+}
+function confirmInstalled() {
+  installed.value = true
+  installEvent.value = null
+}
 async function install() {
   if (!installEvent.value) return
   const event = installEvent.value

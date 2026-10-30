@@ -5,13 +5,18 @@ defineProps({ theme: { type: String, required: true } })
 const emit = defineEmits(['change-theme'])
 const auth = useAuthStore()
 const router = useRouter()
-function signOut() { auth.signOut(); router.push('/') }
+function signOut() {
+  auth.signOut()
+  router.push('/')
+}
 </script>
 
 <template>
   <header class="header">
     <div class="header-inner container">
-      <RouterLink class="brand" to="/"><span aria-hidden="true">⚽</span> FUT <strong>DE SEXTA</strong></RouterLink>
+      <RouterLink class="brand" to="/"
+        ><span aria-hidden="true">⚽</span> FUT <strong>DE SEXTA</strong></RouterLink
+      >
       <nav class="main-nav" aria-label="Navegação principal">
         <template v-if="auth.isAuthenticated()">
           <RouterLink to="/painel">Painel</RouterLink>
