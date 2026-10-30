@@ -44,3 +44,8 @@ que todas as funcionalidades estão prontas para produção.
 
 A branch `dev` permanece intacta durante a refatoração. O PR é rascunho
 até os fluxos de autenticação, navegação e funcionalidades passarem na CI.
+
+## Páginas novas
+
+Configurações, perfil do jogador e histórico de partidas paginado foram
+incluídos nesta branch com integrações reais ao Django.
