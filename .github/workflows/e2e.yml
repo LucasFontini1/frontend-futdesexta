@@ -2,7 +2,7 @@ name: E2E Vue + Django
 on:
   workflow_dispatch:
   push:
-    branches: [dev]
+    branches: [dev, 'refactor/**']
   pull_request:
     paths:
       - 'src/**'

@@ -87,7 +87,9 @@ onMounted(load)
         <section class="card">
           <h2>Elenco</h2>
           <div v-for="player in players" :key="player.id" class="list-row">
-            <span>{{ player.shirt_number ?? '—' }} · {{ player.name }}</span>
+            <RouterLink :to="`/equipes/${team.id}/jogadores/${player.id}`"
+              >{{ player.shirt_number ?? '—' }} · {{ player.name }}</RouterLink
+            >
             <span class="muted">{{ player.position }}</span>
           </div>
           <form v-if="isAdmin" class="form" @submit.prevent="addPlayer">
