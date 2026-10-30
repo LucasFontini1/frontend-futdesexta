@@ -1,7 +1,7 @@
 name: Frontend autoformat
 on:
   push:
-    branches: ['feature/foundation-ui-20261030', 'feature/ci-pwa-polish-20261030']
+    branches: ['feature/foundation-ui-20261030', 'feature/ci-pwa-polish-20261030', 'feature/optional-stats-ui-20261030'
 permissions:
   contents: write
 concurrency:
