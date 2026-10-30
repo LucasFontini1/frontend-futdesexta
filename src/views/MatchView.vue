@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { getMatch, listAttendance, replyAttendance } from '@/api/matchesApi'
+import WeatherBadge from '@/components/maps/WeatherBadge.vue'
 const route = useRoute()
 const auth = useAuthStore()
 const match = ref(null)
@@ -47,6 +48,11 @@ onMounted(load)
           <button class="button button-secondary" type="button" @click="reply('not_going')">Não vou</button>
         </div>
       </section>
+      <div class="actions">
+        <RouterLink class="button button-secondary" :to="`/partidas/${match.id}/escalacao`">Escalação</RouterLink>
+        <RouterLink class="button button-secondary" :to="`/partidas/${match.id}/resultado`">Registrar resultado</RouterLink>
+      </div>
+      <WeatherBadge :match-id="match.id" />
       <section class="card">
         <h2>Confirmações</h2>
         <p>{{ attendances.filter((a) => a.response === 'going').length }} confirmados</p>
