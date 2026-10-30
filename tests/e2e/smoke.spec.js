@@ -21,7 +21,7 @@ test('usuário ativo faz login e cria equipe persistida no Django', async ({ pag
   await page.getByRole('button', { name: 'Entrar' }).click()
   await expect(page).toHaveURL(/\/painel$/)
   // Navegar pela SPA preserva o token mantido somente em memória.
-  await page.getByRole('link', { name: 'Equipes' }).click()
+  await page.getByRole('link', { name: 'Equipes', exact: true }).click()
   await expect(page).toHaveURL(/\/equipes$/)
   const name = 'E2E Sexta FC'
   await page.getByLabel('Nome da equipe').fill(name)
