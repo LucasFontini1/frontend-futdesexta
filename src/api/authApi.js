@@ -7,4 +7,6 @@ export async function login(email, password) {
 }
 export const register = (data) => api('/registro/', { method: 'POST', data })
 export const updateProfile = (data) => api('/usuarios/me/', { method: 'PATCH', data })
-export function logout() { setToken(null) }
+export function logout() {
+  setToken(null)
+}
