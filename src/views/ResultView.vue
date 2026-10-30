@@ -2,7 +2,7 @@
 import { onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { getMatch } from '@/api/matchesApi'
-import { getSides, getLineup, getResult, saveResult } from '@/api/footballApi'
+import { getSides, getLineup, getResult, saveResult, getOptionalMetrics, saveOptionalMetric } from '@/api/footballApi'
 const id = useRoute().params.id
 const match = ref(null)
 const sides = ref([])
@@ -10,12 +10,37 @@ const slots = ref([])
 const error = ref('')
 const notice = ref('')
 const form = reactive({ home_side: '', away_side: '', home_score: 0, away_score: 0, goals: [] })
+const metrics = ref([])
+const metricForm = reactive({ player: '', yellow_cards: '', red_cards: '', fouls: '', saves: '' })
+async function loadMetrics() {
+  metrics.value = await getOptionalMetrics(id)
+}
+async function submitMetric() {
+  error.value = ''
+  notice.value = ''
+  const values = { player: Number(metricForm.player) }
+  for (const field of ['yellow_cards', 'red_cards', 'fouls', 'saves']) {
+    if (metricForm[field] !== '') values[field] = Number(metricForm[field])
+  }
+  if (Object.keys(values).length === 1) {
+    error.value = 'Informe pelo menos uma estatística opcional.'
+    return
+  }
+  try {
+    await saveOptionalMetric(id, values)
+    notice.value = 'Estatística opcional registrada.'
+    await loadMetrics()
+  } catch (err) {
+    error.value = err.message
+  }
+}
 async function load() {
   try {
     const [m, ss, ls] = await Promise.all([getMatch(id), getSides(id), getLineup(id)])
     match.value = m
     sides.value = ss
     slots.value = ls
+    await loadMetrics()
     if (ss.length === 2) {
       form.home_side = ss[0].id
       form.away_side = ss[1].id
@@ -131,5 +156,31 @@ onMounted(load)
         Salvar resultado oficial
       </button>
     </form>
+    <section class="card">
+      <h2>Estatísticas opcionais</h2>
+      <p class="muted">Registre somente o que foi observado. Campo vazio significa não informado, não zero.</p>
+      <div v-for="row in metrics" :key="row.player" class="list-row">
+        <span>Jogador #{{ row.player }}</span>
+        <span>
+          Amarelos: {{ row.yellow_cards ?? '—' }} · Vermelhos: {{ row.red_cards ?? '—' }} ·
+          Faltas: {{ row.fouls ?? '—' }} · Defesas: {{ row.saves ?? '—' }}
+        </span>
+      </div>
+      <form class="form" @submit.prevent="submitMetric">
+        <label class="field">Jogador escalado
+          <select v-model="metricForm.player" required>
+            <option value="" disabled>Selecione um jogador</option>
+            <option v-for="slot in slots.filter((s) => !s.reserve)" :key="slot.player" :value="slot.player">
+              Jogador #{{ slot.player }}
+            </option>
+          </select>
+        </label>
+        <label class="field">Cartões amarelos <input v-model="metricForm.yellow_cards" type="number" min="0" /></label>
+        <label class="field">Cartões vermelhos <input v-model="metricForm.red_cards" type="number" min="0" /></label>
+        <label class="field">Faltas <input v-model="metricForm.fouls" type="number" min="0" /></label>
+        <label class="field">Defesas <input v-model="metricForm.saves" type="number" min="0" /></label>
+        <button type="submit" class="button">Salvar estatísticas opcionais</button>
+      </form>
+    </section>
   </section>
 </template>
