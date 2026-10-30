@@ -1,0 +1,20 @@
+{
+  "id": "/",
+  "name": "Fut de Sexta",
+  "short_name": "Fut de Sexta",
+  "description": "Organize suas equipes, peladas e amistosos.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#09170d",
+  "theme_color": "#15c65e",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

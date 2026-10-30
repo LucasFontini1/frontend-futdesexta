@@ -1,0 +1,20 @@
+import { api } from './config'
+export const listCompetitions = () => api('/competicoes/')
+export const createCompetition = (data) => api('/competicoes/', { method: 'POST', data })
+export const getCompetition = (id) => api(`/competicoes/${id}/`)
+export const getCompetitionTeams = (id) => api(`/competicoes/${id}/equipes/`)
+export const getCompetitionFixtures = (id) => api(`/competicoes/${id}/jogos/`)
+export const addCompetitionFixture = (id, data) =>
+  api(`/competicoes/${id}/jogos/`, { method: 'POST', data })
+export const inviteTeamCompetition = (id, team) =>
+  api(`/competicoes/${id}/convidar/`, { method: 'POST', data: { team } })
+export const getStandings = (id) => api(`/competicoes/${id}/classificacao/`)
+export const generateBracket = (id, data) =>
+  api(`/competicoes/${id}/gerar-chave/`, { method: 'POST', data })
+export const advanceBracket = (id, data) =>
+  api(`/competicoes/${id}/avancar-chave/`, { method: 'POST', data })
+export const decideWinner = (id, data) =>
+  api(`/competicoes/${id}/definir-vencedor/`, { method: 'POST', data })
+export const getCompetitionInvitations = () => api('/convites-competicao/')
+export const respondCompetitionInvitation = (id, accept) =>
+  api(`/convites-competicao/${id}/responder/`, { method: 'POST', data: { accept } })

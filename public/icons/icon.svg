@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Fut de Sexta">
+<rect width="512" height="512" rx="104" fill="#081b0e"/>
+<path d="M67 152L256 52l189 100v178c0 63-86 121-189 161C153 451 67 393 67 330Z" fill="#102819" stroke="#22e65d" stroke-width="16"/>
+<circle cx="256" cy="199" r="90" fill="#f9fffb" stroke="#07110a" stroke-width="13"/>
+<path d="M255 153l39 27-15 47h-48l-14-47Z" fill="#111b14"/>
+<path d="M213 120l-31 37 22 45m97-82 31 37-22 45M200 250l-28 26m140-26 28 26" fill="none" stroke="#111b14" stroke-width="14"/>
+<path d="M93 311h326l-12 69H105Z" fill="#31d852" stroke="#06150b" stroke-width="10"/>
+<text x="256" y="351" font-family="Arial,sans-serif" font-size="49" text-anchor="middle" font-weight="900" fill="#04100b">FUT</text>
+<text x="256" y="419" font-family="Arial,sans-serif" font-size="38" text-anchor="middle" font-weight="900" fill="#f5fff7">DE SEXTA</text>
+</svg>
