@@ -8,14 +8,16 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "run-s \"lint:*\"",
-    "lint:oxlint": "oxlint . --fix",
-    "lint:eslint": "eslint . --fix --cache",
-    "format": "prettier --write --experimental-cli src/"
+    "lint:oxlint": "oxlint .",
+    "lint:eslint": "eslint .",
+    "format": "prettier --write \"src/**/*.{js,vue,css}\" index.html",
+    "format:check": "prettier --check \"src/**/*.{js,vue,css}\" index.html"
   },
   "dependencies": {
     "pinia": "^4.0.3",
     "vue": "^3.5.42",
-    "vue-router": "^5.3.1"
+    "vue-router": "^5.3.1",
+    "leaflet": "^1.9.4"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
