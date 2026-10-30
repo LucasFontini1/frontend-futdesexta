@@ -189,3 +189,10 @@ input:focus-visible {
 :root[data-theme='dark'] .brand-emblem--light {
   display: none;
 }
+
+/* Workspace padrao Momentum adaptado ao verde do Fut de Sexta. */
+.authenticated-main{margin-left:252px;min-height:100dvh;padding-bottom:24px;background:var(--workspace-bg,#f3f7f4)}
+:root[data-theme="dark"] .authenticated-main{--workspace-bg:#0b150f}
+.authenticated-main .container{width:min(1200px,calc(100% - 48px))}
+.authenticated-main .card{border-radius:16px;box-shadow:0 8px 24px rgba(13,54,25,.05)}
+@media(max-width:700px){.authenticated-main{margin-left:0;padding-bottom:calc(78px + env(safe-area-inset-bottom))}.authenticated-main .container{width:calc(100% - 28px)}}
