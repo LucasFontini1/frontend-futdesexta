@@ -2,7 +2,14 @@
 import { onMounted, ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import { getTeam, getMembers, getPlayers, createPlayer, findUsers, inviteUser } from '@/api/teamsApi'
+import {
+  getTeam,
+  getMembers,
+  getPlayers,
+  createPlayer,
+  findUsers,
+  inviteUser,
+} from '@/api/teamsApi'
 
 const route = useRoute()
 const auth = useAuthStore()
@@ -22,20 +29,28 @@ async function load() {
   try {
     const id = route.params.id
     const [t, m, p] = await Promise.all([getTeam(id), getMembers(id), getPlayers(id)])
-    team.value = t; members.value = m; players.value = p
-  } catch (err) { error.value = err.message }
+    team.value = t
+    members.value = m
+    players.value = p
+  } catch (err) {
+    error.value = err.message
+  }
 }
 async function addPlayer() {
-  error.value = ''; notice.value = ''
+  error.value = ''
+  notice.value = ''
   try {
     await createPlayer(route.params.id, {
       name: playerName.value,
       shirt_number: shirtNumber.value ? Number(shirtNumber.value) : null,
     })
-    playerName.value = ''; shirtNumber.value = ''
+    playerName.value = ''
+    shirtNumber.value = ''
     notice.value = 'Jogador cadastrado.'
     await load()
-  } catch (err) { error.value = err.message }
+  } catch (err) {
+    error.value = err.message
+  }
 }
 async function searchUsers() {
   error.value = ''
@@ -43,15 +58,20 @@ async function searchUsers() {
   try {
     const result = await findUsers(search.value.trim())
     foundUsers.value = result.results ?? result
-  } catch (err) { error.value = err.message }
+  } catch (err) {
+    error.value = err.message
+  }
 }
 async function invite(userId) {
-  error.value = ''; notice.value = ''
+  error.value = ''
+  notice.value = ''
   try {
     await inviteUser(route.params.id, userId)
     notice.value = 'Convite enviado.'
     foundUsers.value = []
-  } catch (err) { error.value = err.message }
+  } catch (err) {
+    error.value = err.message
+  }
 }
 onMounted(load)
 </script>
@@ -72,8 +92,12 @@ onMounted(load)
           </div>
           <form v-if="isAdmin" class="form" @submit.prevent="addPlayer">
             <h3>Adicionar jogador</h3>
-            <label class="field">Nome <input v-model="playerName" maxlength="120" required /></label>
-            <label class="field">Número <input v-model="shirtNumber" type="number" min="0" max="65535" /></label>
+            <label class="field"
+              >Nome <input v-model="playerName" maxlength="120" required
+            /></label>
+            <label class="field"
+              >Número <input v-model="shirtNumber" type="number" min="0" max="65535"
+            /></label>
             <button class="button" type="submit">Cadastrar jogador</button>
           </form>
         </section>
@@ -86,7 +110,9 @@ onMounted(load)
           <div v-if="isAdmin" class="form">
             <h3>Convidar pessoa</h3>
             <label class="field">Nome ou username <input v-model="search" minlength="2" /></label>
-            <button class="button button-secondary" type="button" @click="searchUsers">Pesquisar</button>
+            <button class="button button-secondary" type="button" @click="searchUsers">
+              Pesquisar
+            </button>
             <div v-for="user in foundUsers" :key="user.id" class="list-row">
               <span>{{ user.name }} (@{{ user.username }})</span>
               <button class="button" type="button" @click="invite(user.id)">Convidar</button>

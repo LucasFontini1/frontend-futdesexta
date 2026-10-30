@@ -13,7 +13,9 @@ onMounted(async () => {
     })
     success.value = true
     message.value = 'E-mail confirmado! Sua conta está ativa.'
-  } catch (err) { message.value = err.message }
+  } catch (err) {
+    message.value = err.message
+  }
 })
 </script>
 

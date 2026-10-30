@@ -13,8 +13,12 @@ async function submit() {
   try {
     await auth.signIn(email.value, password.value)
     const next = route.query.next
-    await router.push(typeof next === 'string' && next.startsWith('/') && !next.startsWith('//') ? next : '/painel')
-  } catch (err) { error.value = err.message }
+    await router.push(
+      typeof next === 'string' && next.startsWith('/') && !next.startsWith('//') ? next : '/painel',
+    )
+  } catch (err) {
+    error.value = err.message
+  }
 }
 </script>
 
@@ -25,8 +29,12 @@ async function submit() {
       <p class="muted">Acesse sua equipe do Fut de Sexta.</p>
       <p v-if="error" class="error" role="alert">{{ error }}</p>
       <form class="form" @submit.prevent="submit">
-        <label class="field">E-mail <input v-model="email" type="email" autocomplete="email" required /></label>
-        <label class="field">Senha <input v-model="password" type="password" autocomplete="current-password" required /></label>
+        <label class="field"
+          >E-mail <input v-model="email" type="email" autocomplete="email" required
+        /></label>
+        <label class="field"
+          >Senha <input v-model="password" type="password" autocomplete="current-password" required
+        /></label>
         <button class="button" type="submit" :disabled="auth.busy">Entrar</button>
       </form>
       <p><RouterLink to="/esqueci-senha">Esqueci minha senha</RouterLink></p>

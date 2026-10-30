@@ -7,29 +7,49 @@ const teams = ref([])
 const events = ref([])
 const error = ref('')
 const notice = ref('')
-const form = reactive({ team: '', title: '', category: 'other', starts_at: '', ends_at: '', location: '', description: '', latitude: null, longitude: null })
+const form = reactive({
+  team: '',
+  title: '',
+  category: 'other',
+  starts_at: '',
+  ends_at: '',
+  location: '',
+  description: '',
+  latitude: null,
+  longitude: null,
+})
 async function load() {
   try {
     const [e, t] = await Promise.all([listEvents(), listTeams()])
     events.value = e.results ?? e
     teams.value = t.results ?? t
-  } catch (err) { error.value = err.message }
+  } catch (err) {
+    error.value = err.message
+  }
 }
 async function create() {
-  error.value = ''; notice.value = ''
+  error.value = ''
+  notice.value = ''
   try {
     await createEvent({
-      ...form, team: Number(form.team),
+      ...form,
+      team: Number(form.team),
       starts_at: new Date(form.starts_at).toISOString(),
       ends_at: new Date(form.ends_at).toISOString(),
     })
     notice.value = 'Evento criado.'
     await load()
-  } catch (err) { error.value = err.message }
+  } catch (err) {
+    error.value = err.message
+  }
 }
 async function respond(id, response) {
-  try { await answerEvent(id, response); notice.value = 'Presença confirmada.' }
-  catch (err) { error.value = err.message }
+  try {
+    await answerEvent(id, response)
+    notice.value = 'Presença confirmada.'
+  } catch (err) {
+    error.value = err.message
+  }
 }
 onMounted(load)
 </script>
@@ -42,14 +62,16 @@ onMounted(load)
     <div class="card">
       <h2>Novo evento</h2>
       <form class="form" @submit.prevent="create">
-        <label class="field">Equipe
+        <label class="field"
+          >Equipe
           <select v-model="form.team" required>
             <option value="" disabled>Selecione</option>
             <option v-for="team in teams" :key="team.id" :value="team.id">{{ team.name }}</option>
           </select>
         </label>
         <label class="field">Nome <input v-model="form.title" required /></label>
-        <label class="field">Tipo
+        <label class="field"
+          >Tipo
           <select v-model="form.category">
             <option value="other">Outro</option>
             <option value="barbecue">Churrasco</option>
@@ -57,15 +79,23 @@ onMounted(load)
             <option value="meeting">Reunião</option>
           </select>
         </label>
-        <label class="field">Início <input v-model="form.starts_at" type="datetime-local" required /></label>
-        <label class="field">Fim <input v-model="form.ends_at" type="datetime-local" required /></label>
+        <label class="field"
+          >Início <input v-model="form.starts_at" type="datetime-local" required
+        /></label>
+        <label class="field"
+          >Fim <input v-model="form.ends_at" type="datetime-local" required
+        /></label>
         <label class="field">Local <input v-model="form.location" /></label>
         <label class="field">Descrição <input v-model="form.description" /></label>
-        <LocationPicker @selected="(value) => {
-          form.latitude = value.latitude
-          form.longitude = value.longitude
-          if (value.location) form.location = value.location
-        }" />
+        <LocationPicker
+          @selected="
+            (value) => {
+              form.latitude = value.latitude
+              form.longitude = value.longitude
+              if (value.location) form.location = value.location
+            }
+          "
+        />
         <button class="button" type="submit">Criar evento</button>
       </form>
     </div>
@@ -75,7 +105,9 @@ onMounted(load)
       <p>{{ new Date(event.starts_at).toLocaleString('pt-BR') }} · {{ event.location }}</p>
       <div class="actions">
         <button class="button" @click="respond(event.id, 'going')">Vou</button>
-        <button class="button button-secondary" @click="respond(event.id, 'not_going')">Não vou</button>
+        <button class="button button-secondary" @click="respond(event.id, 'not_going')">
+          Não vou
+        </button>
       </div>
     </article>
   </section>

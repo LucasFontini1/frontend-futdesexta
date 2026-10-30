@@ -8,11 +8,17 @@ async function load() {
   try {
     const result = await listNotifications()
     notifications.value = result.results ?? result
-  } catch (err) { error.value = err.message }
+  } catch (err) {
+    error.value = err.message
+  }
 }
 async function read(id) {
-  try { await markRead(id); await load() }
-  catch (err) { error.value = err.message }
+  try {
+    await markRead(id)
+    await load()
+  } catch (err) {
+    error.value = err.message
+  }
 }
 onMounted(load)
 </script>
@@ -26,7 +32,9 @@ onMounted(load)
       <h2>{{ item.title }}</h2>
       <p class="muted">{{ new Date(item.created_at).toLocaleString('pt-BR') }}</p>
       <div class="actions">
-        <RouterLink v-if="item.link" class="button button-secondary" :to="item.link">Abrir</RouterLink>
+        <RouterLink v-if="item.link" class="button button-secondary" :to="item.link"
+          >Abrir</RouterLink
+        >
         <button v-if="!item.read_at" class="button" @click="read(item.id)">Marcar como lida</button>
       </div>
     </article>

@@ -6,15 +6,25 @@ const name = ref('')
 const busy = ref(false)
 const error = ref('')
 async function load() {
-  try { const result = await listTeams(); teams.value = result.results ?? result }
-  catch (err) { error.value = err.message }
+  try {
+    const result = await listTeams()
+    teams.value = result.results ?? result
+  } catch (err) {
+    error.value = err.message
+  }
 }
 async function create() {
   busy.value = true
   error.value = ''
-  try { await createTeam({ name: name.value }); name.value = ''; await load() }
-  catch (err) { error.value = err.message }
-  finally { busy.value = false }
+  try {
+    await createTeam({ name: name.value })
+    name.value = ''
+    await load()
+  } catch (err) {
+    error.value = err.message
+  } finally {
+    busy.value = false
+  }
 }
 onMounted(load)
 </script>
@@ -27,7 +37,9 @@ onMounted(load)
     <div class="card">
       <h2>Criar equipe</h2>
       <form class="form" @submit.prevent="create">
-        <label class="field">Nome da equipe <input v-model="name" required maxlength="120" /></label>
+        <label class="field"
+          >Nome da equipe <input v-model="name" required maxlength="120"
+        /></label>
         <div><button type="submit" class="button" :disabled="busy">Criar equipe</button></div>
       </form>
     </div>

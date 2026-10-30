@@ -1,6 +1,11 @@
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
-import { listCompetitions, createCompetition, getCompetitionInvitations, respondCompetitionInvitation } from '@/api/competitionsApi'
+import {
+  listCompetitions,
+  createCompetition,
+  getCompetitionInvitations,
+  respondCompetitionInvitation,
+} from '@/api/competitionsApi'
 const competitions = ref([])
 const invitations = ref([])
 const error = ref('')
@@ -11,7 +16,9 @@ async function load() {
     const [c, i] = await Promise.all([listCompetitions(), getCompetitionInvitations()])
     competitions.value = c.results ?? c
     invitations.value = i.results ?? i
-  } catch (err) { error.value = err.message }
+  } catch (err) {
+    error.value = err.message
+  }
 }
 async function create() {
   error.value = ''
@@ -20,12 +27,18 @@ async function create() {
     notice.value = 'Competição criada.'
     form.name = ''
     await load()
-  } catch (err) { error.value = err.message }
+  } catch (err) {
+    error.value = err.message
+  }
 }
 async function reply(id, accept) {
   error.value = ''
-  try { await respondCompetitionInvitation(id, accept); await load() }
-  catch (err) { error.value = err.message }
+  try {
+    await respondCompetitionInvitation(id, accept)
+    await load()
+  } catch (err) {
+    error.value = err.message
+  }
 }
 onMounted(load)
 </script>
@@ -40,7 +53,8 @@ onMounted(load)
       <h2>Criar competição</h2>
       <form class="form" @submit.prevent="create">
         <label class="field">Nome <input v-model="form.name" required maxlength="120" /></label>
-        <label class="field">Formato
+        <label class="field"
+          >Formato
           <select v-model="form.format">
             <option value="league">Pontos corridos</option>
             <option value="knockout">Mata-mata</option>
@@ -52,7 +66,11 @@ onMounted(load)
       </form>
     </div>
     <h2>Convites recebidos</h2>
-    <article v-for="invite in invitations.filter((i) => i.status === 'pending')" :key="invite.id" class="card">
+    <article
+      v-for="invite in invitations.filter((i) => i.status === 'pending')"
+      :key="invite.id"
+      class="card"
+    >
       <p>Competição #{{ invite.competition }} · {{ invite.team_name }}</p>
       <div class="actions">
         <button class="button" @click="reply(invite.id, true)">Aceitar</button>
@@ -61,7 +79,12 @@ onMounted(load)
     </article>
     <h2>Minhas competições</h2>
     <div class="grid">
-      <RouterLink v-for="competition in competitions" :key="competition.id" :to="`/competicoes/${competition.id}`" class="card">
+      <RouterLink
+        v-for="competition in competitions"
+        :key="competition.id"
+        :to="`/competicoes/${competition.id}`"
+        class="card"
+      >
         <h3>{{ competition.name }}</h3>
         <p>{{ competition.format === 'league' ? 'Pontos corridos' : 'Mata-mata' }}</p>
         <p>{{ competition.description }}</p>

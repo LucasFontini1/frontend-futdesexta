@@ -11,8 +11,11 @@ async function load() {
   try {
     const data = await getRanking(kind.value)
     ranking.value = data.ranking
-  } catch (err) { error.value = err.message }
-  finally { loading.value = false }
+  } catch (err) {
+    error.value = err.message
+  } finally {
+    loading.value = false
+  }
 }
 watch(kind, load, { immediate: true })
 </script>
@@ -21,7 +24,8 @@ watch(kind, load, { immediate: true })
   <section class="container page">
     <h1>Estatísticas e rankings</h1>
     <p>Resultados oficiais são contabilizados uma única vez por modalidade.</p>
-    <label class="field">Modalidade
+    <label class="field"
+      >Modalidade
       <select v-model="kind">
         <option value="geral">Total geral</option>
         <option value="pelada">Peladas</option>
@@ -34,8 +38,13 @@ watch(kind, load, { immediate: true })
     <div v-for="row in ranking" :key="`${row.team}:${row.player}`" class="card">
       <h2>{{ row.name }}</h2>
       <p>{{ row.games }} jogos · {{ row.goals }} gols · {{ row.wins }} vitórias</p>
-      <p class="muted">{{ row.draws }} empates · {{ row.losses }} derrotas · {{ row.goals_conceded_identified }} gols sofridos identificados</p>
+      <p class="muted">
+        {{ row.draws }} empates · {{ row.losses }} derrotas ·
+        {{ row.goals_conceded_identified }} gols sofridos identificados
+      </p>
     </div>
-    <p v-if="!ranking.length && !loading && !error" class="muted">Não há estatísticas oficiais para este filtro.</p>
+    <p v-if="!ranking.length && !loading && !error" class="muted">
+      Não há estatísticas oficiais para este filtro.
+    </p>
   </section>
 </template>

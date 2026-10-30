@@ -7,7 +7,9 @@ const view = ref('list')
 const events = ref([])
 const loading = ref(false)
 const error = ref('')
-function localDate(value) { return new Date(value).toLocaleString('pt-BR') }
+function localDate(value) {
+  return new Date(value).toLocaleString('pt-BR')
+}
 const days = computed(() => {
   const [year, m] = month.value.split('-').map(Number)
   const count = new Date(year, m, 0).getDate()
@@ -28,12 +30,17 @@ const byWeek = computed(() => {
   return weeks
 })
 async function load() {
-  loading.value = true; error.value = ''
+  loading.value = true
+  error.value = ''
   const [year, m] = month.value.split('-').map(Number)
   const last = String(new Date(year, m, 0).getDate()).padStart(2, '0')
-  try { events.value = await api(`/calendario/?start=${month.value}-01&end=${month.value}-${last}`) }
-  catch (err) { error.value = err.message }
-  finally { loading.value = false }
+  try {
+    events.value = await api(`/calendario/?start=${month.value}-01&end=${month.value}-${last}`)
+  } catch (err) {
+    error.value = err.message
+  } finally {
+    loading.value = false
+  }
 }
 watch(month, load, { immediate: true })
 </script>
@@ -43,7 +50,8 @@ watch(month, load, { immediate: true })
     <h1>Calendário</h1>
     <div class="actions">
       <label class="field">Mês <input v-model="month" type="month" /></label>
-      <label class="field">Visualização
+      <label class="field"
+        >Visualização
         <select v-model="view">
           <option value="list">Lista</option>
           <option value="month">Mensal</option>
@@ -62,11 +70,15 @@ watch(month, load, { immediate: true })
       </article>
     </div>
     <div v-else class="grid">
-      <div v-for="(week, index) in (view === 'week' ? byWeek : [days])" :key="index" class="card">
+      <div v-for="(week, index) in view === 'week' ? byWeek : [days]" :key="index" class="card">
         <div class="grid">
           <section v-for="day in week" :key="day">
             <h3>{{ day }}</h3>
-            <RouterLink v-for="event in inDay(day)" :key="`${event.type}:${event.id}`" :to="event.link">
+            <RouterLink
+              v-for="event in inDay(day)"
+              :key="`${event.type}:${event.id}`"
+              :to="event.link"
+            >
               {{ event.title }}
             </RouterLink>
           </section>

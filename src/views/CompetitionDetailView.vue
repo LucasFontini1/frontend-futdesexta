@@ -3,8 +3,14 @@ import { onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { api } from '@/api/config'
 import {
-  getCompetition, getCompetitionTeams, getCompetitionFixtures, getStandings,
-  inviteTeamCompetition, generateBracket, advanceBracket, addCompetitionFixture,
+  getCompetition,
+  getCompetitionTeams,
+  getCompetitionFixtures,
+  getStandings,
+  inviteTeamCompetition,
+  generateBracket,
+  advanceBracket,
+  addCompetitionFixture,
 } from '@/api/competitionsApi'
 
 const route = useRoute()
@@ -23,35 +29,51 @@ const iso = (v) => new Date(v).toISOString()
 async function load() {
   try {
     const [c, t, f, r] = await Promise.all([
-      getCompetition(id), getCompetitionTeams(id), getCompetitionFixtures(id), getStandings(id),
+      getCompetition(id),
+      getCompetitionTeams(id),
+      getCompetitionFixtures(id),
+      getStandings(id),
     ])
     competition.value = c
     teams.value = t
     fixtures.value = f
     ranking.value = r
-  } catch (err) { error.value = err.message }
+  } catch (err) {
+    error.value = err.message
+  }
 }
 async function discover() {
   error.value = ''
   try {
     const response = await api(`/equipes/descobrir/?search=${encodeURIComponent(search.value)}`)
     found.value = response.results ?? response
-  } catch (err) { error.value = err.message }
+  } catch (err) {
+    error.value = err.message
+  }
 }
 async function invite(team) {
   error.value = ''
-  try { await inviteTeamCompetition(id, team); notice.value = 'Convite enviado.' }
-  catch (err) { error.value = err.message }
+  try {
+    await inviteTeamCompetition(id, team)
+    notice.value = 'Convite enviado.'
+  } catch (err) {
+    error.value = err.message
+  }
 }
 async function addFixture() {
   error.value = ''
   try {
     await addCompetitionFixture(id, {
-      ...form, home_team: Number(form.home_team), away_team: Number(form.away_team),
-      starts_at: iso(form.starts_at), ends_at: iso(form.ends_at),
+      ...form,
+      home_team: Number(form.home_team),
+      away_team: Number(form.away_team),
+      starts_at: iso(form.starts_at),
+      ends_at: iso(form.ends_at),
     })
     await load()
-  } catch (err) { error.value = err.message }
+  } catch (err) {
+    error.value = err.message
+  }
 }
 async function bracket(advance) {
   error.value = ''
@@ -60,7 +82,9 @@ async function bracket(advance) {
     const result = await (advance ? advanceBracket(id, payload) : generateBracket(id, payload))
     notice.value = result.completed ? `Campeão: equipe #${result.champion}` : 'Rodada criada.'
     await load()
-  } catch (err) { error.value = err.message }
+  } catch (err) {
+    error.value = err.message
+  }
 }
 onMounted(load)
 </script>
@@ -86,12 +110,17 @@ onMounted(load)
         <h2>Classificação</h2>
         <div v-for="(team, index) in ranking" :key="team.team" class="list-row">
           <span>{{ index + 1 }}º {{ team.name }}</span>
-          <span>{{ team.points }} pontos · {{ team.played }} jogos · SG {{ team.goal_difference }}</span>
+          <span
+            >{{ team.points }} pontos · {{ team.played }} jogos · SG
+            {{ team.goal_difference }}</span
+          >
         </div>
       </section>
       <section v-if="competition.format === 'knockout'" class="card">
         <h2>Mata-mata</h2>
-        <label class="field">Início da rodada <input v-model="dates.starts_at" type="datetime-local" /></label>
+        <label class="field"
+          >Início da rodada <input v-model="dates.starts_at" type="datetime-local"
+        /></label>
         <label class="field">Término <input v-model="dates.ends_at" type="datetime-local" /></label>
         <div class="actions">
           <button class="button" @click="bracket(false)">Gerar chave</button>
@@ -101,27 +130,39 @@ onMounted(load)
       <section v-else class="card">
         <h2>Novo confronto</h2>
         <form class="form" @submit.prevent="addFixture">
-          <label class="field">Casa
+          <label class="field"
+            >Casa
             <select v-model="form.home_team" required>
               <option value="" disabled>Selecione</option>
-              <option v-for="team in teams" :key="team.team_id" :value="team.team_id">{{ team.team__name }}</option>
+              <option v-for="team in teams" :key="team.team_id" :value="team.team_id">
+                {{ team.team__name }}
+              </option>
             </select>
           </label>
-          <label class="field">Visitante
+          <label class="field"
+            >Visitante
             <select v-model="form.away_team" required>
               <option value="" disabled>Selecione</option>
-              <option v-for="team in teams" :key="team.team_id" :value="team.team_id">{{ team.team__name }}</option>
+              <option v-for="team in teams" :key="team.team_id" :value="team.team_id">
+                {{ team.team__name }}
+              </option>
             </select>
           </label>
-          <label class="field">Início <input v-model="form.starts_at" type="datetime-local" required /></label>
-          <label class="field">Fim <input v-model="form.ends_at" type="datetime-local" required /></label>
+          <label class="field"
+            >Início <input v-model="form.starts_at" type="datetime-local" required
+          /></label>
+          <label class="field"
+            >Fim <input v-model="form.ends_at" type="datetime-local" required
+          /></label>
           <button class="button" type="submit">Criar confronto</button>
         </form>
       </section>
       <h2>Confrontos</h2>
       <div v-for="fixture in fixtures" :key="fixture.id" class="card">
         <h3>Rodada {{ fixture.round }} · {{ fixture.home_team }} × {{ fixture.away_team }}</h3>
-        <RouterLink class="button button-secondary" :to="`/partidas/${fixture.match}`">Abrir partida e resultado</RouterLink>
+        <RouterLink class="button button-secondary" :to="`/partidas/${fixture.match}`"
+          >Abrir partida e resultado</RouterLink
+        >
       </div>
     </template>
   </section>

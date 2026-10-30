@@ -18,15 +18,20 @@ async function load() {
     match.value = m
     attendances.value = a
     myAnswer.value = a.find((entry) => entry.user === auth.user?.id)?.response
-  } catch (err) { error.value = err.message }
+  } catch (err) {
+    error.value = err.message
+  }
 }
 async function reply(response) {
-  error.value = ''; notice.value = ''
+  error.value = ''
+  notice.value = ''
   try {
     await replyAttendance(route.params.id, response)
     notice.value = 'Presença atualizada.'
     await load()
-  } catch (err) { error.value = err.message }
+  } catch (err) {
+    error.value = err.message
+  }
 }
 onMounted(load)
 </script>
@@ -42,15 +47,30 @@ onMounted(load)
       <p>Status: {{ match.status }}</p>
       <section class="card">
         <h2>Você vai jogar?</h2>
-        <p>Minha resposta: {{ myAnswer === 'going' ? 'Vou' : myAnswer === 'not_going' ? 'Não vou' : 'Ainda não respondi' }}</p>
+        <p>
+          Minha resposta:
+          {{
+            myAnswer === 'going'
+              ? 'Vou'
+              : myAnswer === 'not_going'
+                ? 'Não vou'
+                : 'Ainda não respondi'
+          }}
+        </p>
         <div class="actions">
           <button class="button" type="button" @click="reply('going')">Vou</button>
-          <button class="button button-secondary" type="button" @click="reply('not_going')">Não vou</button>
+          <button class="button button-secondary" type="button" @click="reply('not_going')">
+            Não vou
+          </button>
         </div>
       </section>
       <div class="actions">
-        <RouterLink class="button button-secondary" :to="`/partidas/${match.id}/escalacao`">Escalação</RouterLink>
-        <RouterLink class="button button-secondary" :to="`/partidas/${match.id}/resultado`">Registrar resultado</RouterLink>
+        <RouterLink class="button button-secondary" :to="`/partidas/${match.id}/escalacao`"
+          >Escalação</RouterLink
+        >
+        <RouterLink class="button button-secondary" :to="`/partidas/${match.id}/resultado`"
+          >Registrar resultado</RouterLink
+        >
       </div>
       <WeatherBadge :match-id="match.id" />
       <section class="card">

@@ -7,8 +7,12 @@ const invitations = ref([])
 const error = ref('')
 const message = ref('')
 async function load() {
-  try { const result = await listInvitations(); invitations.value = result.results ?? result }
-  catch (err) { error.value = err.message }
+  try {
+    const result = await listInvitations()
+    invitations.value = result.results ?? result
+  } catch (err) {
+    error.value = err.message
+  }
 }
 async function reply(id, accepted) {
   error.value = ''
@@ -16,7 +20,9 @@ async function reply(id, accepted) {
     await answerInvitation(id, accepted)
     message.value = accepted ? 'Convite aceito!' : 'Convite recusado.'
     await load()
-  } catch (err) { error.value = err.message }
+  } catch (err) {
+    error.value = err.message
+  }
 }
 onMounted(load)
 </script>
