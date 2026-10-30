@@ -1,12 +1,13 @@
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
 import { listTeams } from '@/api/teamsApi'
+import LocationPicker from '@/components/maps/LocationPicker.vue'
 import { answerEvent, createEvent, listEvents } from '@/api/eventsApi'
 const teams = ref([])
 const events = ref([])
 const error = ref('')
 const notice = ref('')
-const form = reactive({ team: '', title: '', category: 'other', starts_at: '', ends_at: '', location: '', description: '' })
+const form = reactive({ team: '', title: '', category: 'other', starts_at: '', ends_at: '', location: '', description: '', latitude: null, longitude: null })
 async function load() {
   try {
     const [e, t] = await Promise.all([listEvents(), listTeams()])
@@ -60,6 +61,11 @@ onMounted(load)
         <label class="field">Fim <input v-model="form.ends_at" type="datetime-local" required /></label>
         <label class="field">Local <input v-model="form.location" /></label>
         <label class="field">Descrição <input v-model="form.description" /></label>
+        <LocationPicker @selected="(value) => {
+          form.latitude = value.latitude
+          form.longitude = value.longitude
+          if (value.location) form.location = value.location
+        }" />
         <button class="button" type="submit">Criar evento</button>
       </form>
     </div>
