@@ -11,3 +11,6 @@ export const getRanking = (kind = 'geral', team = '') =>
   api(
     `/estatisticas/?kind=${encodeURIComponent(kind)}${team ? `&team=${encodeURIComponent(team)}` : ''}`,
   )
+export const getOptionalMetrics = (id) => api(`/partidas/${id}/metricas/`)
+export const saveOptionalMetric = (id, data) =>
+  api(`/partidas/${id}/metricas/`, { method: 'POST', data })
