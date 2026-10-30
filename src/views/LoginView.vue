@@ -29,6 +29,7 @@ async function submit() {
         <label class="field">Senha <input v-model="password" type="password" autocomplete="current-password" required /></label>
         <button class="button" type="submit" :disabled="auth.busy">Entrar</button>
       </form>
+      <p><RouterLink to="/esqueci-senha">Esqueci minha senha</RouterLink></p>
       <p>Não tem conta? <RouterLink to="/cadastro">Cadastre-se</RouterLink></p>
     </section>
   </div>
