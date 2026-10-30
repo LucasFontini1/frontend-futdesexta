@@ -42,6 +42,12 @@ watch(kind, load, { immediate: true })
         {{ row.draws }} empates · {{ row.losses }} derrotas ·
         {{ row.goals_conceded_identified }} gols sofridos identificados
       </p>
+      <p class="muted">
+        Amarelos: {{ row.yellow_cards ?? 'não informado' }} ·
+        Vermelhos: {{ row.red_cards ?? 'não informado' }} ·
+        Faltas: {{ row.fouls ?? 'não informado' }} ·
+        Defesas: {{ row.saves ?? 'não informado' }}
+      </p>
     </div>
     <p v-if="!ranking.length && !loading && !error" class="muted">
       Não há estatísticas oficiais para este filtro.
