@@ -22,6 +22,8 @@ const titles = {
   invites: 'Convites',
   profile: 'Meu perfil',
   settings: 'Configurações',
+  history: 'Histórico de partidas',
+  'player-profile': 'Perfil do jogador',
   lineup: 'Escalação',
   result: 'Resultado',
   recurrences: 'Recorrências',
