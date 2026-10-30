@@ -2,7 +2,10 @@
  * A persistência no localStorage é intencional, conforme a referência solicitada.
  * Em produção, a opção de cookies HttpOnly reduziria exposição a XSS.
  */
-const API_BASE = (import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000/api').replace(/\/$/, '')
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000/api').replace(
+  /\/$/,
+  '',
+)
 const ACCESS = 'access_token'
 const REFRESH = 'refresh_token'
 let refreshPromise = null
@@ -23,12 +26,17 @@ export function clearTokens() {
 async function readResponse(response) {
   const raw = await response.text()
   if (!raw) return null
-  try { return JSON.parse(raw) } catch { throw new Error('Resposta inesperada da API.') }
+  try {
+    return JSON.parse(raw)
+  } catch {
+    throw new Error('Resposta inesperada da API.')
+  }
 }
 function apiError(response, payload) {
   const detail = payload?.detail || payload?.non_field_errors?.[0]
   const field = payload && Object.values(payload).find((value) => Array.isArray(value))
-  const message = typeof detail === 'string' ? detail : field?.[0] || 'Não foi possível concluir a operação.'
+  const message =
+    typeof detail === 'string' ? detail : field?.[0] || 'Não foi possível concluir a operação.'
   const error = new Error(message)
   error.status = response.status
   return error
@@ -52,13 +60,17 @@ export async function api(path, { method = 'GET', data, _retry = false } = {}) {
   if (token) headers.Authorization = `Bearer ${token}`
   if (data != null && !(data instanceof FormData)) headers['Content-Type'] = 'application/json'
   const response = await fetch(`${API_BASE}${path}`, {
-    method, headers,
+    method,
+    headers,
     body: data == null ? undefined : data instanceof FormData ? data : JSON.stringify(data),
   })
   const payload = await readResponse(response)
   if (response.status === 401 && !_retry && !path.startsWith('/token/')) {
     try {
-      if (!refreshPromise) refreshPromise = refreshAccess().finally(() => { refreshPromise = null })
+      if (!refreshPromise)
+        refreshPromise = refreshAccess().finally(() => {
+          refreshPromise = null
+        })
       await refreshPromise
       return api(path, { method, data, _retry: true })
     } catch (error) {

@@ -2,7 +2,8 @@ import { api, clearTokens, setToken } from './config'
 
 export async function login(email, password) {
   const result = await api('/token/', { method: 'POST', data: { email, password } })
-  if (!result?.access || !result?.refresh) throw new Error('O servidor não retornou os tokens de sessão.')
+  if (!result?.access || !result?.refresh)
+    throw new Error('O servidor não retornou os tokens de sessão.')
   setToken(result.access, result.refresh)
   try {
     const profile = await api('/usuarios/me/')
@@ -20,4 +21,6 @@ export const updateProfile = async (data) => {
   localStorage.setItem('user_profile_cache', JSON.stringify(profile))
   return profile
 }
-export function logout() { clearTokens() }
+export function logout() {
+  clearTokens()
+}
