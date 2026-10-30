@@ -3,7 +3,7 @@ import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { register } from '@/api/authApi'
 const router = useRouter()
-const form = reactive({ name: '', username: '', email: '', password: '', password_confirm: '' })
+const form = reactive({ name: '', username: '', email: '', password: '', password_confirm: '', accepted_terms: false })
 const error = ref('')
 const saving = ref(false)
 async function submit() {
@@ -26,6 +26,11 @@ async function submit() {
         <label class="field">E-mail <input v-model="form.email" type="email" required autocomplete="email" /></label>
         <label class="field">Senha <input v-model="form.password" type="password" required autocomplete="new-password" minlength="8" /></label>
         <label class="field">Confirme a senha <input v-model="form.password_confirm" type="password" required autocomplete="new-password" /></label>
+        <label>
+          <input v-model="form.accepted_terms" type="checkbox" required />
+          Li e aceito os <RouterLink to="/termos">Termos de uso</RouterLink>
+          e a <RouterLink to="/privacidade">Política de privacidade</RouterLink>.
+        </label>
         <button class="button" type="submit" :disabled="saving">Criar conta</button>
       </form>
     </section>
