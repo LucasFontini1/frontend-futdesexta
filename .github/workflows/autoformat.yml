@@ -1,0 +1,33 @@
+name: Frontend autoformat
+on:
+  push:
+    branches: ['feature/foundation-ui-20261030']
+permissions:
+  contents: write
+concurrency:
+  group: frontend-formatter
+  cancel-in-progress: true
+jobs:
+  format:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.18.0'
+      - run: npm install
+      - name: Formata arquivos do Vue por pasta
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for folder in src/api src/components src/views src/router src/stores src/assets src/App.vue src/main.js index.html; do
+            npx prettier --write "$folder"
+            git add "$folder"
+            if ! git diff --cached --quiet; then
+              git commit -m "style($folder): padroniza frontend com Prettier"
+            fi
+          done
+          git push
