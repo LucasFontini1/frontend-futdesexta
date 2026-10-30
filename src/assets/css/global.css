@@ -169,3 +169,23 @@ input:focus-visible {
     order: 3;
   }
 }
+
+.brand-emblem {
+  display: inline-flex;
+  align-items: center;
+}
+.brand-emblem img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  border-radius: 9px;
+}
+.brand-emblem--dark {
+  display: none;
+}
+:root[data-theme='dark'] .brand-emblem--dark {
+  display: block;
+}
+:root[data-theme='dark'] .brand-emblem--light {
+  display: none;
+}
