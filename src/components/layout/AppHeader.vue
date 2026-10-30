@@ -16,7 +16,7 @@ function signOut() { auth.signOut(); router.push('/') }
         <template v-if="auth.isAuthenticated()">
           <RouterLink to="/painel">Painel</RouterLink>
           <RouterLink to="/equipes">Equipes</RouterLink>
-          <RouterLink to="/convites">Convites</RouterLink>
+          <RouterLink to="/partidas">Peladas</RouterLink>\n          <RouterLink to="/convites">Convites</RouterLink>
           <RouterLink to="/perfil">Perfil</RouterLink>
           <button type="button" @click="signOut">Sair</button>
         </template>
