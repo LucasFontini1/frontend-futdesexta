@@ -3,7 +3,10 @@
  */
 import axios from 'axios'
 
-const API_BASE = (import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000/api').replace(/\/$/, '')
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000/api').replace(
+  /\/$/,
+  '',
+)
 const ACCESS = 'access_token'
 const REFRESH = 'refresh_token'
 let refreshPromise = null
@@ -32,8 +35,13 @@ function normalizeError(error) {
   const payload = error.response?.data
   const detail = payload?.detail || payload?.non_field_errors?.[0]
   const field = payload && Object.values(payload).find((value) => Array.isArray(value))
-  const message = typeof detail === 'string'
-    ? detail : field?.[0] || (error.code === 'ECONNABORTED' ? 'Tempo de conexão esgotado.' : 'Não foi possível concluir a operação.')
+  const message =
+    typeof detail === 'string'
+      ? detail
+      : field?.[0] ||
+        (error.code === 'ECONNABORTED'
+          ? 'Tempo de conexão esgotado.'
+          : 'Não foi possível concluir a operação.')
   const e = new Error(message)
   e.status = error.response?.status
   return e
@@ -69,7 +77,9 @@ client.interceptors.response.use(
     request._retry = true
     try {
       if (!refreshPromise) {
-        refreshPromise = refreshAccess().finally(() => { refreshPromise = null })
+        refreshPromise = refreshAccess().finally(() => {
+          refreshPromise = null
+        })
       }
       request.headers.Authorization = `Bearer ${await refreshPromise}`
       return client(request)
