@@ -39,3 +39,8 @@ específicos do futebol.
 
 A ausência de falhas de build, lint ou testes básicos **não** significa
 que todas as funcionalidades estão prontas para produção.
+
+## Fluxo de revisão
+
+A branch `dev` permanece intacta durante a refatoração. O PR é rascunho
+até os fluxos de autenticação, navegação e funcionalidades passarem na CI.
