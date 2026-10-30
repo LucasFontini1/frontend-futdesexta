@@ -1,0 +1,5 @@
+.football-field{position:relative;min-height:360px;background:repeating-linear-gradient(0deg,#238745 0,#238745 50px,#2c9952 50px,#2c9952 100px);border:3px solid #efffef;border-radius:1rem;overflow:hidden;margin:1.5rem 0}
+.football-field::before{content:'';position:absolute;inset:12px;border:2px solid #ffffffaa;pointer-events:none}
+.football-field::after{content:'';position:absolute;left:50%;top:0;bottom:0;border-left:2px solid #ffffffaa;pointer-events:none}
+.field-player{position:absolute;display:grid;transform:translate(-50%,-50%);background:#a8f9b7;color:#09230d;border:2px solid white;box-shadow:0 2px 8px #0005;border-radius:.7rem;min-width:60px;max-width:110px;padding:.3rem;text-align:center;font-size:.74rem;overflow-wrap:anywhere}
+.field-player small{font-size:.65rem}
