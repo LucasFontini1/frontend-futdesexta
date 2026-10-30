@@ -4,6 +4,7 @@ import { RouterView, useRoute } from 'vue-router'
 import { computed, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import AppSidebar from '@/components/layout/AppSidebar.vue'
+import WorkspaceHeader from '@/components/layout/WorkspaceHeader.vue'
 import AuthShell from '@/components/layout/AuthShell.vue'
 import AppHeader from '@/components/layout/AppHeader.vue'
 const route = useRoute()
@@ -29,6 +30,7 @@ function changeTheme(value) {
 
 <template>
   <AppSidebar v-if="privateLayout" />
+  <WorkspaceHeader v-if="privateLayout" :theme="theme" @change-theme="changeTheme" />
   <AppHeader v-else-if="!authenticationLayout" :theme="theme" @change-theme="changeTheme" />
   <main v-if="authenticationLayout"><AuthShell><RouterView /></AuthShell></main>
   <main v-else :class="{ 'authenticated-main': privateLayout }"><RouterView /></main>
