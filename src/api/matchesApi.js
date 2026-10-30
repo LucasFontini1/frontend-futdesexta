@@ -8,4 +8,6 @@ export const replyAttendance = (id, response) =>
   api(`/partidas/${id}/presenca/`, { method: 'POST', data: { response } })
 
 export const listMatchHistory = (page = 1, kind = '') =>
-  api(`/partidas/?status=finished&page=${Number(page)}${kind ? `&kind=${encodeURIComponent(kind)}` : ''}`)
+  api(
+    `/partidas/?status=finished&page=${Number(page)}${kind ? `&kind=${encodeURIComponent(kind)}` : ''}`,
+  )
