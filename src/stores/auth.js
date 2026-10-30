@@ -9,11 +9,20 @@ export const useAuthStore = defineStore('auth', () => {
 
   async function signIn(email, password) {
     busy.value = true
-    try { user.value = await authApi.login(email, password) }
-    catch (error) { authApi.logout(); user.value = null; throw error }
-    finally { busy.value = false }
+    try {
+      user.value = await authApi.login(email, password)
+    } catch (error) {
+      authApi.logout()
+      user.value = null
+      throw error
+    } finally {
+      busy.value = false
+    }
   }
-  function signOut() { authApi.logout(); user.value = null }
+  function signOut() {
+    authApi.logout()
+    user.value = null
+  }
   const isAuthenticated = () => hasToken() && Boolean(user.value)
   return { user, busy, signIn, signOut, isAuthenticated }
 })
