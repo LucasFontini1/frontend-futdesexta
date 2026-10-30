@@ -8,7 +8,9 @@ import AppHeader from '@/components/layout/AppHeader.vue'
 const route = useRoute()
 const auth = useAuthStore()
 const privateLayout = computed(() => Boolean(route.meta.auth && auth.isAuthenticated()))
-onMounted(() => { if (auth.isAuthenticated()) auth.loadCurrentUser().catch(() => {}) })
+onMounted(() => {
+  if (auth.isAuthenticated()) auth.loadCurrentUser().catch(() => {})
+})
 const theme = ref(localStorage.getItem('fut-theme') || 'system')
 const media = matchMedia('(prefers-color-scheme: dark)')
 function applyTheme() {
