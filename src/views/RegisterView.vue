@@ -2,7 +2,9 @@
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { register } from '@/api/authApi'
+import { useAuthStore } from '@/stores/auth'
 const router = useRouter()
+const auth = useAuthStore()
 const form = reactive({
   name: '',
   username: '',
@@ -18,7 +20,12 @@ async function submit() {
   error.value = ''
   try {
     await register(form)
-    await router.push('/entrar')
+    if (import.meta.env.DEV) {
+      await auth.signIn(form.email, form.password)
+      await router.replace('/painel')
+    } else {
+      await router.replace('/verificar-email?pending=1')
+    }
   } catch (err) {
     error.value = err.message
   } finally {
