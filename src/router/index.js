@@ -120,6 +120,7 @@ const router = createRouter({
       component: () => import('@/views/InvitationsView.vue'),
       meta: { auth: true },
     },
+    { path: '/configuracoes', name: 'settings', component: () => import('@/views/SettingsView.vue'), meta: { auth: true } },
     {
       path: '/perfil',
       name: 'profile',
