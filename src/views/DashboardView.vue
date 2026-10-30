@@ -17,7 +17,6 @@ const upcoming = computed(() =>
     .sort((a, b) => new Date(a.starts_at) - new Date(b.starts_at))
     .slice(0, 4),
 )
-const nextMatch = computed(() => upcoming.value[0] || null)
 
 onMounted(async () => {
   try {
