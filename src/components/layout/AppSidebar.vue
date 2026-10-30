@@ -20,6 +20,7 @@ const items = [
   { to: '/notificacoes', label: 'Avisos', symbol: '♧' },
   { to: '/convites', label: 'Convites', symbol: '✉' },
   { to: '/perfil', label: 'Perfil', symbol: '◉' },
+  { to: '/configuracoes', label: 'Configurações', symbol: '⚙' },
 ]
 function active(item) {
   return route.path === item.to || route.path.startsWith(item.to + '/')
