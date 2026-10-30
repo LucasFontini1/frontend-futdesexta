@@ -1,44 +1,39 @@
-# frontend-futdesexta
+# Fut de Sexta — Frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+Plataforma Vue 3 com Composition API, Vite, Pinia e Vue Router para o futebol amador.
 
-## Recommended IDE Setup
+## Funcionalidades implementadas nesta branch
+- Landing page, cadastro, login, perfil e foto.
+- Tema claro, escuro e automático.
+- Equipes privadas, membros, jogadores e convites.
+- Agendamento de peladas e confirmação Vou/Não vou.
+- Integração real com API Django REST (sem mocks de dados).
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Recorrência, escalação, resultados, estatísticas, amistosos, competições,
+calendário, PWA, push e integração da arte final **ainda não estão concluídos**.
+Consulte as issues e não considere a aplicação completa.
 
-## Recommended Browser Setup
+## Rodar
+1. Instale Node conforme `package.json`.
+2. `npm install`
+3. Copie `.env.example` como `.env` e ajuste `VITE_API_BASE_URL`.
+4. Execute o backend Django primeiro.
+5. `npm run dev`; `npm run build` para validar produção.
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+## Organização
+- `src/api/`: chamadas HTTP ao Django.
+- `src/stores/`: estado Pinia e autenticação.
+- `src/router/`: navegação, páginas protegidas.
+- `src/views/`: telas por jornada.
+- `src/components/layout/`: cabeçalho e temas.
+- `src/assets/css/`: estilos globais.
+- `public/`: recursos públicos, futuros ícones PWA.
 
-## Customize configuration
+## Segurança
+Tokens de acesso JWT permanecem apenas em memória e são descartados quando
+a página recarrega. Não adicione chaves de Supabase ou Cloudinary em `VITE_*`.
+A autorização é feita no backend; as guardas do Vue são apenas de navegação.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+## Testes
+`npm run build` e `npm run lint:eslint` são executados no GitHub Actions.
+Ainda são necessários testes de integração e de ponta a ponta.
