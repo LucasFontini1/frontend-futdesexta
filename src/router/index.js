@@ -120,9 +120,24 @@ const router = createRouter({
       component: () => import('@/views/InvitationsView.vue'),
       meta: { auth: true },
     },
-    { path: '/historico', name: 'history', component: () => import('@/views/HistoryView.vue'), meta: { auth: true } },
-    { path: '/equipes/:teamId/jogadores/:playerId', name: 'player-profile', component: () => import('@/views/PlayerProfileView.vue'), meta: { auth: true } },
-    { path: '/configuracoes', name: 'settings', component: () => import('@/views/SettingsView.vue'), meta: { auth: true } },
+    {
+      path: '/historico',
+      name: 'history',
+      component: () => import('@/views/HistoryView.vue'),
+      meta: { auth: true },
+    },
+    {
+      path: '/equipes/:teamId/jogadores/:playerId',
+      name: 'player-profile',
+      component: () => import('@/views/PlayerProfileView.vue'),
+      meta: { auth: true },
+    },
+    {
+      path: '/configuracoes',
+      name: 'settings',
+      component: () => import('@/views/SettingsView.vue'),
+      meta: { auth: true },
+    },
     {
       path: '/perfil',
       name: 'profile',
