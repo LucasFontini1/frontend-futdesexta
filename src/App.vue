@@ -32,7 +32,11 @@ function changeTheme(value) {
   <AppSidebar v-if="privateLayout" />
   <WorkspaceHeader v-if="privateLayout" :theme="theme" @change-theme="changeTheme" />
   <AppHeader v-else-if="!authenticationLayout" :theme="theme" @change-theme="changeTheme" />
-  <main v-if="authenticationLayout"><AuthShell><RouterView /></AuthShell></main>
+  <main v-if="authenticationLayout">
+    <AuthShell><RouterView /></AuthShell>
+  </main>
   <main v-else :class="{ 'authenticated-main': privateLayout }"><RouterView /></main>
-  <footer v-if="!privateLayout && !authenticationLayout" class="site-footer">Fut de Sexta · Futebol é comunidade.</footer>
+  <footer v-if="!privateLayout && !authenticationLayout" class="site-footer">
+    Fut de Sexta · Futebol é comunidade.
+  </footer>
 </template>
