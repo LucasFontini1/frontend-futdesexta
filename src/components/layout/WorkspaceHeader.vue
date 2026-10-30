@@ -21,6 +21,7 @@ const titles = {
   notifications: 'Notificações',
   invites: 'Convites',
   profile: 'Meu perfil',
+  settings: 'Configurações',
   lineup: 'Escalação',
   result: 'Resultado',
   recurrences: 'Recorrências',
