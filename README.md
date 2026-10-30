@@ -41,8 +41,15 @@ Aplicação Vue 3 com Composition API, Pinia, Vue Router e Vite. Design mobile-f
 - `VITE_VAPID_PUBLIC_KEY`: chave **pública** gerada para push, opcional. Sem ela, o app funciona sem notificações push.
 - **Nunca** coloque chaves privadas Cloudinary, Supabase ou Django em variáveis `VITE_*`.
 
+## Estatísticas opcionais
+
+A página de resultado também permite informar cartões, faltas e defesas por jogador.
+Campos em branco são registrados como **não informados**, enquanto zero significa
+um valor efetivamente registrado. O backend precisa incluir a migração 0019 e
+o endpoint `/api/partidas/:id/metricas/` antes de publicar esta interface.
+
 ## Limitações
 
-O app guarda o access token em memória e requer novo login após recarregar. A guarda das rotas é de conveniência; a autorização real é no servidor. O ícone SVG existente é provisório e deve ser substituído pelos arquivos definitivos da marca aprovados pelo projeto. Ícones PWA 192/512 PNG e testes E2E em navegador real ainda são pendências.
+O app guarda o access token em memória e requer novo login após recarregar. A guarda das rotas é de conveniência; a autorização real é no servidor. Esta branch já inclui os logos aprovados, ícones PWA PNG 192/512 e maskable, além de testes Playwright da navegação e dos ativos; a configuração final de infraestrutura e credenciais externas ainda está pendente.
 
 A política/termos existentes são textos iniciais, não substituem revisão jurídica. Mapas, SMTP, previsão e push dependem de provedores e podem exigir configuração externa. Não implantar como sistema público antes de revisar testes de segurança, permissões, integração e privacidade.
