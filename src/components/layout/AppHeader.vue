@@ -15,7 +15,23 @@ function signOut() {
   <header class="header">
     <div class="header-inner container">
       <RouterLink class="brand" to="/"
-        ><span aria-hidden="true">⚽</span> FUT <strong>DE SEXTA</strong></RouterLink
+        ><span class="brand-emblem" aria-hidden="true">
+          <img
+            class="brand-emblem--light"
+            src="/icons/fut-light-192.png"
+            alt=""
+            width="44"
+            height="44"
+          />
+          <img
+            class="brand-emblem--dark"
+            src="/icons/fut-dark-192.png"
+            alt=""
+            width="44"
+            height="44"
+          />
+        </span>
+        FUT <strong>DE SEXTA</strong></RouterLink
       >
       <nav class="main-nav" aria-label="Navegação principal">
         <template v-if="auth.isAuthenticated()">
