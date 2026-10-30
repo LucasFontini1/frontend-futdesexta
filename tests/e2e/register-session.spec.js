@@ -14,5 +14,5 @@ test('cadastro cria usuário e mantém login após atualizar a página', async (
   await expect.poll(() => page.evaluate(() => localStorage.getItem('access_token'))).not.toBeNull()
   await page.reload()
   await expect(page).toHaveURL(/\/painel$/)
-  await expect(page.getByText('Atleta de Teste')).toBeVisible()
+  await expect(page.getByRole('heading', { name: /Atleta de Teste/ })).toBeVisible()
 })
