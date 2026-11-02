@@ -1,0 +1,17 @@
+name: Login frontend checks
+on:
+  push:
+    branches: ['feature/login-restart-from-main-20261102', dev]
+  pull_request:
+    branches: [dev]
+jobs:
+  vue:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.18.0'
+      - run: npm install
+      - run: npm run build
+      - run: npm run lint:eslint
