@@ -1,44 +1,22 @@
-# frontend-futdesexta
+# Fut de Sexta — fase de login
 
-This template should help get you started developing with Vue 3 in Vite.
+Esta branch parte da main original e contém **somente login**.
 
-## Recommended IDE Setup
+## Estrutura
+- src/api/config.js: Axios, JWT e refresh
+- src/api/authApi.js: chamadas de login e perfil
+- src/stores/authStore.js: Pinia e localStorage
+- src/views/LoginView.vue: formulário
+- src/views/HomeView.vue: comprovação da sessão
+- src/router/index.js: proteção de rota
+- src/assets/css/global.css: identidade visual
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Referências estudadas **somente para leitura**:
+Hackaton-2026-IFC/Frontend-Hackathon e Hackaton-2026-IFC/Backend-Hackathon.
 
-## Recommended Browser Setup
+## Como iniciar
+Copie `.env.example` para `.env`, depois `npm install`, `npm run dev`.
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+No backend, crie um usuário com `pdm run python manage.py createsuperuser`, use o e-mail e a senha cadastrados. O endpoint é `POST /api/token/`. Após login, o sistema confirma o perfil com `GET /api/usuarios/me/`, salva access e refresh no localStorage e abre `/inicio`.
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+Os demais módulos foram deliberadamente deixados de fora desta fase. Não é uma implementação completa do projeto.
