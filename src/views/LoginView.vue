@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import BrandMark from '@/components/BrandMark.vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
 
@@ -18,10 +19,7 @@ async function submit() {
   <main class="login-page">
     <section class="login-shell" aria-label="Entrar no Fut de Sexta">
       <div class="login-form-panel">
-        <div class="brand">
-          <div class="brand-ball" aria-hidden="true">⚽</div>
-          <span>FUT <strong>DE SEXTA</strong></span>
-        </div>
+        <BrandMark />
         <div class="form-area">
           <div class="eyebrow"><span class="eyebrow-line"></span> SUA PELADA COMEÇA AQUI</div>
           <h1>Bem-vindo <span>de volta.</span></h1>
@@ -32,10 +30,10 @@ async function submit() {
             <label for="password">Senha</label>
             <div class="password-wrap">
               <input id="password" v-model="password" :type="showPassword ? 'text' : 'password'" autocomplete="current-password" placeholder="Sua senha" required />
-              <button type="button" class="reveal" :aria-label="showPassword ? 'Ocultar senha' : 'Mostrar senha'" @click="showPassword = !showPassword">{{ showPassword ? 'Ocultar' : 'Mostrar' }}</button>
+              <button type="button" class="reveal" :aria-label="showPassword ? 'Ocultar senha' : 'Mostrar senha'" @click="showPassword = !showPassword"><i class="mdi" :class="showPassword ? 'mdi-eye-off-outline' : 'mdi-eye-outline'" aria-hidden="true"></i></button>
             </div>
             <p v-if="auth.error" class="error" role="alert">{{ auth.error }}</p>
-            <button class="submit" type="submit" :disabled="auth.loading">{{ auth.loading ? 'Entrando...' : 'Entrar na minha conta' }} <span aria-hidden="true">→</span></button>
+            <button class="submit" type="submit" :disabled="auth.loading">{{ auth.loading ? 'Entrando...' : 'Entrar na minha conta' }} <i class="mdi mdi-arrow-right" aria-hidden="true"></i></button>
           </form>
           <p class="bottom-note">Não tem conta? <RouterLink to="/cadastro" class="text-link">Cadastre-se</RouterLink></p>
         </div>
