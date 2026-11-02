@@ -1,7 +1,7 @@
 name: Login frontend checks
 on:
   push:
-    branches: ['feature/login-restart-from-main-20261102', dev]
+    branches: ['feature/login-restart-from-main-20261102', 'feature/register-auto-login-20261102', dev]
   pull_request:
     branches: [dev]
 jobs:
