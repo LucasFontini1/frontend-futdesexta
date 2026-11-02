@@ -5,6 +5,7 @@ const router = createRouter({
   routes: [
     { path: '/', redirect: '/entrar' },
     { path: '/entrar', name: 'login', component: () => import('@/views/LoginView.vue') },
+    { path: '/cadastro', name: 'register', component: () => import('@/views/RegisterView.vue') },
     { path: '/inicio', name: 'home', component: () => import('@/views/HomeView.vue'), meta: { requiresAuth: true } },
     { path: '/:pathMatch(.*)*', redirect: '/entrar' },
   ],
@@ -16,6 +17,6 @@ router.beforeEach(async (to) => {
     const ok = await auth.restoreSession()
     if (!ok) return { name: 'login' }
   }
-  if (to.name === 'login' && auth.isAuthenticated) return { name: 'home' }
+  if ((to.name === 'login' || to.name === 'register') && auth.isAuthenticated) return { name: 'home' }
 })
 export default router
