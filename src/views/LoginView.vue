@@ -37,7 +37,7 @@ async function submit() {
             <p v-if="auth.error" class="error" role="alert">{{ auth.error }}</p>
             <button class="submit" type="submit" :disabled="auth.loading">{{ auth.loading ? 'Entrando...' : 'Entrar na minha conta' }} <span aria-hidden="true">→</span></button>
           </form>
-          <p class="bottom-note">A resenha começa dentro de campo.</p>
+          <p class="bottom-note">Não tem conta? <RouterLink to="/cadastro" class="text-link">Cadastre-se</RouterLink></p>
         </div>
         <div class="legal">© {{ new Date().getFullYear() }} Fut de Sexta. Feito para quem ama futebol.</div>
       </div>
