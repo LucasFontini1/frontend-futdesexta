@@ -3,11 +3,11 @@ import { useAuthStore } from '@/stores/authStore'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    { path: '/', redirect: '/entrar' },
+    { path: '/', name: 'landing', component: () => import('@/views/LandingView.vue') },
     { path: '/entrar', name: 'login', component: () => import('@/views/LoginView.vue') },
     { path: '/cadastro', name: 'register', component: () => import('@/views/RegisterView.vue') },
     { path: '/inicio', name: 'home', component: () => import('@/views/HomeView.vue'), meta: { requiresAuth: true } },
-    { path: '/:pathMatch(.*)*', redirect: '/entrar' },
+    { path: '/:pathMatch(.*)*', redirect: '/' },
   ],
 })
 router.beforeEach(async (to) => {
