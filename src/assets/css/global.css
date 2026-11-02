@@ -20,3 +20,53 @@ input:focus-visible{border-color:#1ca851;box-shadow:0 0 0 3px #28c76824}.passwor
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important}}
 
 .brand-link{text-decoration:none;color:inherit;width:max-content}.text-link{color:#168b40;font-weight:800;text-decoration:none}.text-link:hover{text-decoration:underline}.register-form{padding:20px 0}.register-form .subtitle{margin-bottom:18px}.register-form h1{font-size:clamp(32px,4vw,48px)}.checkbox-label{display:flex;align-items:center;gap:10px;color:#576d5e;font-weight:500;font-size:12px;line-height:1.5}.checkbox-label input{width:17px;height:17px;flex:0 0 17px;accent-color:#1c9e4b}.register-form .submit{margin-top:12px}
+
+
+/* Landing page pública — layout Lovable, desktop e celular */
+.landing{background:#f5f8f5;color:#101511;min-height:100dvh}
+.public-container{width:min(1060px,calc(100% - 40px));margin-inline:auto}
+.landing-dark,.landing-cta{background:linear-gradient(108deg,#050907 12%,#001d06 66%,#003808 100%);color:#f7fff8}
+.public-header{display:flex;align-items:center;justify-content:space-between;min-height:74px;gap:20px}
+.public-brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:900;font-stretch:condensed;font-size:18px;letter-spacing:-.5px}
+.public-brand b{color:#21d847}.brand-emblem{display:grid;place-items:center;border:2px solid #21dc49;border-radius:12px;width:39px;height:39px;color:#27e95c;font-size:25px;background:#07110b}
+.nav-login{text-decoration:none;color:#fff;font-size:13px;font-weight:600}.nav-login:hover{color:#20df56}
+.hero{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);align-items:center;gap:50px;padding-block:90px 85px;min-height:520px}
+.hero-copy{min-width:0}.kicker{color:#28e65b;font-size:12px;letter-spacing:3px;font-weight:900;margin:0 0 20px}
+.landing .hero h1{margin:0;font-size:clamp(44px,5.5vw,76px);line-height:.97;letter-spacing:-2px;font-weight:1000;color:white}
+.landing .hero h1 span{color:#24df4d}
+.hero-description{max-width:510px;font-size:16px;line-height:1.7;color:#bec8bf;margin:23px 0 26px}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+.public-button{display:inline-flex;align-items:center;justify-content:center;min-width:142px;padding:12px 22px;border-radius:9px;text-decoration:none;font-size:13px;font-weight:800;min-height:45px;transition:transform .2s,background .2s}
+.public-button:hover{transform:translateY(-2px)}.public-button.primary{background:#19dc40;color:#020802}.public-button.primary:hover{background:#41f268}
+.public-button.outline{color:#fff;background:#060807;border:1px solid #343c36}
+.hero-preview{display:flex;flex-direction:column;align-items:center;min-width:0}
+.hero-crest{height:228px;width:242px;border-radius:18px;background:#020703;border:4px solid #19df47;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:inset 0 0 0 5px #060906,inset 0 0 0 9px #16c636;text-align:center;transform:translateY(9px)}
+.hero-crest .mdi{font-size:67px;line-height:1;color:white}.hero-crest strong{font-size:76px;font-weight:1000;letter-spacing:-5px;line-height:1;text-shadow:3px 3px #095621}
+.hero-crest>span{background:#19de45;color:#031008;font-size:22px;font-weight:1000;transform:skew(-9deg);padding:2px 13px;letter-spacing:-1px}
+.crest-stars{color:#24ed58;letter-spacing:9px;margin-top:5px}
+.score-card{position:relative;width:min(100%,365px);border:1px solid #c4cfc5;border-radius:17px;background:#0c120e;padding:16px;color:#fff;box-shadow:0 12px 25px #0005}
+.match-caption{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:10px;color:#9aa79d}.match-caption .status{background:#173c20;color:#bff5c6;border-radius:15px;padding:4px 8px}
+.score-line{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center;text-align:center;margin:12px 0 11px}.score-line strong{font-size:26px;letter-spacing:-1px}.score-line b{font-size:25px;color:#20e84b}
+.attendance{display:grid;grid-template-columns:1fr 1fr;gap:8px}.attendance span{border-radius:8px;background:#19201c;font-size:11px;padding:9px}.attendance b{color:#29e55b}.score-card small{display:block;text-align:center;color:#a1aca3;font-size:9px;margin-top:12px}
+.public-section{padding:68px 0 75px}.public-section h2,.landing-cta h2{font-size:clamp(28px,3.3vw,40px);font-weight:1000;letter-spacing:-1.2px;text-align:center;margin:0 0 38px}
+.how{background:#fafcfb}.features{background:#f0f4f1}
+.steps-grid,.features-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;max-width:970px;margin:auto}
+.public-card{background:#fff;border:1px solid #d8e2da;border-radius:15px;padding:19px 19px 18px;box-shadow:0 3px 6px #05170a08;min-width:0}
+.public-card h3{font-size:16px;font-weight:1000;letter-spacing:-.3px;margin:6px 0 9px}.public-card p{font-size:12px;line-height:1.6;color:#59645d;margin:0}.step-number{color:#03ad2f;font-size:46px;font-weight:1000;line-height:1}.feature-card>.mdi{font-size:24px;color:#00ad34}
+.landing-cta{padding:70px 0;text-align:center}.landing-cta h2{color:white;margin-bottom:25px}
+.public-footer{background:#fafcfb;padding:23px 0;color:#6a756c;font-size:12px}.footer-inner{display:flex;justify-content:space-between;gap:16px}
+.reveal{display:grid;place-items:center;right:6px;width:44px;height:44px;color:#168e42;font-size:21px}.password-wrap input{padding-right:54px}
+.brand-ball{font-size:24px}.brand-ball .mdi{font-size:27px}
+@media(max-width:760px){
+  .public-container{width:min(520px,calc(100% - 30px))}
+  .public-header{min-height:67px}
+  .hero{grid-template-columns:minmax(0,1fr);gap:28px;padding:54px 0 65px;text-align:center}
+  .hero-copy,.hero-preview{width:100%;justify-self:center;display:flex;flex-direction:column;align-items:center}
+  .hero-copy .kicker{font-size:11px;letter-spacing:2px}.landing .hero h1{font-size:clamp(43px,10.5vw,64px);line-height:1}
+  .hero-description{font-size:14px;margin-inline:auto}.hero-actions{justify-content:center}
+  .hero-crest{transform:translateY(9px);width:218px;height:205px}.hero-crest strong{font-size:67px}
+  .score-card{width:min(100%,365px)}.public-section{padding:57px 0}.steps-grid{grid-template-columns:1fr;max-width:460px}
+  .features-grid{grid-template-columns:repeat(2,minmax(0,1fr));max-width:520px}
+  .public-section h2{font-size:30px}.public-card{text-align:center}.footer-inner{align-items:center;flex-direction:column;text-align:center}
+}
+@media(max-width:410px){.features-grid{grid-template-columns:1fr}.public-card{padding:20px}.score-line strong{font-size:22px}}

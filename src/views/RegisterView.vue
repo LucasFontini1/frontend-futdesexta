@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue'
+import BrandMark from '@/components/BrandMark.vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
 import { register } from '@/api/authApi'
@@ -54,7 +55,7 @@ async function submit() {
   <main class="login-page">
     <section class="login-shell" aria-label="Criar conta no Fut de Sexta">
       <div class="login-form-panel">
-        <RouterLink to="/entrar" class="brand brand-link"><div class="brand-ball" aria-hidden="true">⚽</div><span>FUT <strong>DE SEXTA</strong></span></RouterLink>
+        <BrandMark />
         <div class="form-area register-form">
           <div class="eyebrow"><span class="eyebrow-line"></span> ENTRE PARA O TIME</div>
           <h1>Seu jogo <span>começa aqui.</span></h1>
@@ -67,13 +68,13 @@ async function submit() {
             <label for="password">Senha</label>
             <div class="password-wrap">
               <input id="password" v-model="password" :type="showPassword ? 'text' : 'password'" autocomplete="new-password" minlength="8" placeholder="Crie uma senha" required />
-              <button type="button" class="reveal" :aria-label="showPassword ? 'Ocultar senha' : 'Mostrar senha'" @click="showPassword = !showPassword">{{ showPassword ? 'Ocultar' : 'Mostrar' }}</button>
+              <button type="button" class="reveal" :aria-label="showPassword ? 'Ocultar senha' : 'Mostrar senha'" @click="showPassword = !showPassword"><i class="mdi" :class="showPassword ? 'mdi-eye-off-outline' : 'mdi-eye-outline'" aria-hidden="true"></i></button>
             </div>
             <label for="confirmation">Confirmar senha</label>
             <input id="confirmation" v-model="confirmation" :type="showPassword ? 'text' : 'password'" autocomplete="new-password" placeholder="Repita sua senha" required />
             <label class="checkbox-label"><input v-model="accepted" type="checkbox" required /> Quero criar minha conta no Fut de Sexta.</label>
             <p v-if="error" class="error" role="alert">{{ error }}</p>
-            <button type="submit" class="submit" :disabled="busy || auth.loading">{{ busy ? 'Criando sua conta...' : 'Criar conta e entrar' }} <span aria-hidden="true">→</span></button>
+            <button type="submit" class="submit" :disabled="busy || auth.loading">{{ busy ? 'Criando sua conta...' : 'Criar conta e entrar' }} <i class="mdi mdi-arrow-right" aria-hidden="true"></i></button>
           </form>
           <p class="bottom-note">Já tem uma conta? <RouterLink to="/entrar" class="text-link">Entrar</RouterLink></p>
         </div>
